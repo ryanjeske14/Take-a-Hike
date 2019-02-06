@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hike Finder</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <main id="mainContainer">
+        <h1>Take a Hike!</h1>
+
+        <form id="js-form">
+            <input type="text" name="search-term" id="js-search-term" placeholder="Search by city, state, zip, etc." required>
+            <fieldset>
+                <select>
+                    <option value="Distance" selected disabled hidden>Distance (mi)</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <select>
+                    <option value="Trail Length" selected disabled hidden>Trail Length (mi)</option>
+                    <option value="5">> 1</option>
+                    <option value="10">> 5</option>
+                    <option value="20">> 10</option>
+                    <option value="50">> 20</option>
+                </select>
+                <select>
+                    <option value="Rating" selected disabled hidden>Rating</option>
+                    <option value="1">★</option>
+                    <option value="2">★★</option>
+                    <option value="3">★★★</option>
+                    <option value="4">★★★★</option>
+                </select>
+            </fieldset>
+    
+            
+            <input type="submit" value="Find a Hike Near You!">
+        </form>
+
+        <section id="results">
+
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

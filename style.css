@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none;
+}
+
+#hikePic{
+    width: 200px;
+}
+
+.error-message {
+    color: red;
+}
