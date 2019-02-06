@@ -20,32 +20,44 @@ function displayResults(responseJson) {
 
     console.log(responseJson);
     $('#results').empty();
-  
+    $('#results').html(
+        `<h2>Search results</h2>
+        <ul id="resultsList"></ul>`
+    );
+
     for (let i = 0; i < responseJson.trails.length; i++){
   
-      $('#results').append(
-        `<h2>Search Results</h2>
-        <ul>
-        <li><h3>${responseJson.trails[i].name}</h3>
+      $('#resultsList').append(
+        `<li><h3>${responseJson.trails[i].name}</h3>
         <p>${responseJson.trails[i].summary}</p>
         <p>Trail Length: ${responseJson.trails[i].length}</p>
         <p>Rating: ${responseJson.trails[i].stars}</p>
         <img src="${responseJson.trails[i].imgMedium}" id="hikePic">
         <div class="buttonContainer"><button type="submit" id="detailsButton">More Details</button></div>
-        </li>
-        </ul>`
+        </li>`
       )};
-  
-    $('#results').removeClass('hidden');
   };
 
 
 function getHikeData(GPSData) {
     console.log(`Finding Hikes`);
+    console.log($('#search-radius').val());
     const params = {
         lat: GPSData.results[0].geometry.location.lat,
         lon: GPSData.results[0].geometry.location.lng,
+        sort: "distance",
         key: APIKeys.hikingProjectAPIKey
+    }
+
+    if ($('#search-radius').val() != null) {
+        params.maxDistance = $('#search-radius').val();
+    }
+
+    if ($('#trail-length').val() != null) {
+        params.minLength = $('#trail-length').val();
+    }
+    if ($('#rating').val() != null) {
+        params.minStars = $('#rating').val();
     }
 
     const querySting = formatQueryParams(params);
@@ -76,10 +88,9 @@ function getHikeData(GPSData) {
 
 function getGPSData(searchTerm) {
     console.log(`Getting GPS Coordinates`);
-
     const params = {
         address: searchTerm,
-        key: APIKeys.googleAPIKey
+        key: APIKeys.googleAPIKey,
     };
 
     const queryString = formatQueryParams(params);
