@@ -10,11 +10,12 @@ const endPoints = {
     getTrailsEndPoint: "https://www.hikingproject.com/data/get-trails"
 };
 
-function formatQueryParams(params) {
-    const queryItems = Object.keys(params)
-      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-    return queryItems.join('&');
-};
+function handleDetailsButton() {
+    $('#results').on('click', '#detailsButton', function(event) {
+       console.log('details button clicked');
+        $(this).closest('li').children('#details').toggleClass('hidden');
+    });
+}
 
 function displayResults(responseJson) {
 
@@ -30,14 +31,24 @@ function displayResults(responseJson) {
       $('#resultsList').append(
         `<li><h3>${responseJson.trails[i].name}</h3>
         <p>${responseJson.trails[i].summary}</p>
+        <img src="${responseJson.trails[i].imgMedium}" id="hikePic">
         <p>Trail Length: ${responseJson.trails[i].length}</p>
         <p>Rating: ${responseJson.trails[i].stars}</p>
-        <img src="${responseJson.trails[i].imgMedium}" id="hikePic">
-        <div class="buttonContainer"><button type="submit" id="detailsButton">More Details</button></div>
+        <p class="hidden" id="details">Difficulty: ${responseJson.trails[i].difficulty}</p>
+        <p class="hidden" id="details">Ascent (ft): ${responseJson.trails[i].ascent}</p>
+        <p class="hidden" id="details">Descent (ft): ${responseJson.trails[i].descent}</p>
+        <p class="hidden" id="details">Trail Condition: ${responseJson.trails[i].conditionStatus}</p>
+        <div class="buttonContainer"><button id="detailsButton">Show/Hide Details</button></div>
         </li>`
       )};
+    handleDetailsButton();
   };
 
+function formatQueryParams(params) {
+    const queryItems = Object.keys(params)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+    return queryItems.join('&');
+};
 
 function getHikeData(GPSData) {
     console.log(`Finding Hikes`);
