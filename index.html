@@ -6,42 +6,56 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Hike Finder</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Titillium+Web" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 </head>
 <body>
     <main id="mainContainer">
-        <h1>Take a Hike!</h1>
+        <h1>Find a hike near you!</h1>
 
         <form id="js-form">
             <input type="text" name="search-term" id="js-search-term" placeholder="Search by city, state, zip, etc." required>
+            <h4>Search Criteria (optional)</h4>
             <fieldset>
+                <label for="search-radius">Search Radius (mi)</label>
                 <select id="search-radius">
-                    <option value="Search Radius" selected disabled hidden>Search Radius (mi)</option>
+                    <option value="null" selected disabled hidden></option>
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
+                <label for="trail-length">Trail Length (mi)</label>
                 <select id="trail-length">
-                    <option value="Trail Length" selected disabled hidden>Trail Length (mi)</option>
+                    <option value="null" selected disabled hidden></option>
                     <option value="1">> 1</option>
                     <option value="5">> 5</option>
                     <option value="10">> 10</option>
                     <option value="20">> 20</option>
                 </select>
+                <label for="rating">Rating</label>
                 <select id="rating">
-                    <option value="Rating" selected disabled hidden>Rating</option>
-                    <option value="1">★</option>
-                    <option value="2">★★</option>
-                    <option value="3">★★★</option>
-                    <option value="4">★★★★</option>
+                    <option value="null" selected disabled hidden></option>
+                    <option value="1">★ +</option>
+                    <option value="2">★★ +</option>
+                    <option value="3">★★★ +</option>
+                    <option value="4">★★★★ +</option>
+                </select>
+                <label for="max-results">Maximum Number of Results</label>
+                <select id="max-results">
+                    <option value="null" selected disabled hidden></option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
                 </select>
             </fieldset>
-    
             
-            <input type="submit" value="Find a Hike Near You!">
+            <input type="submit" value="Take a Hike!" id="search-button">
         </form>
 
         <section id="results">
@@ -51,3 +65,6 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
+

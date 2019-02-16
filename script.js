@@ -17,31 +17,86 @@ function handleDetailsButton() {
     });
 }
 
-function displayResults(responseJson) {
+function displayResults(responseJson, formattedAddress) {
 
     console.log(responseJson);
     $('#results').empty();
     $('#results').html(
-        `<h2>Search results</h2>
+        `<h2>Showing results for ${formattedAddress}</h2>
         <ul id="resultsList"></ul>`
     );
 
     for (let i = 0; i < responseJson.trails.length; i++){
-  
+
+        let trailDifficulty;
+        if (responseJson.trails[i].difficulty == "green") {
+            trailDifficulty = `<i class="fas fa-circle"></i>`;
+        }
+        else if (responseJson.trails[i].difficulty == "greenBlue") {
+            trailDifficulty = ` <i class="fas fa-circle"></i> <i class="fas fa-square"></i>`;
+        }
+        else if (responseJson.trails[i].difficulty == "blue") {
+            trailDifficulty = `<i class="fas fa-square"></i>`;
+        }
+        else if (responseJson.trails[i].difficulty == "blueBlack") {
+            trailDifficulty = `<i class="fas fa-square"></i> <i class="fas fa-square-full"></i>`;
+        }
+        else if (responseJson.trails[i].difficulty == "black") {
+            trailDifficulty = `<i class="fas fa-square-full"></i>`;
+        }
+        else if (responseJson.trails[i].difficulty == "dblack") {
+            trailDifficulty = `<i class="fas fa-square-full"></i> <i class="fas fa-square-full"></i>`;
+        }
+        else {
+            trailDifficulty = `unknown`;
+        }
+
+        let trailRating;
+        if (responseJson.trails[i].stars >= 0 && responseJson.trails[i].stars < 1.5) {
+            trailRating = `<i class="fas fa-star"></i>`;
+        }
+        else if (responseJson.trails[i].stars >= 1.5 && responseJson.trails[i].stars < 2) {
+            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
+        } 
+        else if (responseJson.trails[i].stars >= 2 && responseJson.trails[i].stars < 2.5) {
+            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i>`;
+        } 
+        else if (responseJson.trails[i].stars >= 2.5 && responseJson.trails[i].stars < 3) {
+            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
+        } 
+        else if (responseJson.trails[i].stars >= 3 && responseJson.trails[i].stars < 3.5) {
+            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>`;
+        } 
+        else if (responseJson.trails[i].stars >= 3.5 && responseJson.trails[i].stars < 4) {
+            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
+        } 
+        else if(responseJson.trails[i].stars >= 4 && responseJson.trails[i].stars < 4.5) {
+            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>`;
+        } 
+        else if (responseJson.trails[i].stars >= 4.5 && responseJson.trails[i].stars < 5) {
+            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
+        } 
+        else if(responseJson.trails[i].stars == 5) {
+            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>`;
+        } 
+        else {
+            trailRating = `unknown`;
+        }
+
+
       $('#resultsList').append(
-        `<li><h3>${responseJson.trails[i].name}</h3>
+        `<li><h3><a href="${responseJson.trails[i].url}" target="_blank">${responseJson.trails[i].name}</a></h3>
         <p>${responseJson.trails[i].summary}</p>
-        <img src="${responseJson.trails[i].imgMedium}" id="hikePic">
-        <p>Trail Length: ${responseJson.trails[i].length}</p>
-        <p>Rating: ${responseJson.trails[i].stars}</p>
-        <p class="hidden" id="details">Difficulty: ${responseJson.trails[i].difficulty}</p>
-        <p class="hidden" id="details">Ascent (ft): ${responseJson.trails[i].ascent}</p>
-        <p class="hidden" id="details">Descent (ft): ${responseJson.trails[i].descent}</p>
+        <div id="hikePic"><a href="${responseJson.trails[i].url}" target="_blank"><img src="${responseJson.trails[i].imgMedium}"></a></div>
+        <p>Trail Length: ${responseJson.trails[i].length} miles</p>
+        <p>Rating: ${trailRating}</p>
+        <p class="hidden" id="details">Difficulty: <span class="star">${trailDifficulty}</p>
+        <p class="hidden" id="details">Ascent: <i class="fas fa-arrow-up"></i>  ${responseJson.trails[i].ascent} ft</p>
+        <p class="hidden" id="details">Descent: ${responseJson.trails[i].descent} ft <i class="fas fa-arrow-down"></i></p>
         <p class="hidden" id="details">Trail Condition: ${responseJson.trails[i].conditionStatus}</p>
         <div class="buttonContainer"><button id="detailsButton">Show/Hide Details</button></div>
         </li>`
       )};
-    handleDetailsButton();
   };
 
 function formatQueryParams(params) {
@@ -53,6 +108,7 @@ function formatQueryParams(params) {
 function getHikeData(GPSData) {
     console.log(`Finding Hikes`);
     console.log($('#search-radius').val());
+    const formattedAddress = GPSData.results[0].formatted_address;
     const params = {
         lat: GPSData.results[0].geometry.location.lat,
         lon: GPSData.results[0].geometry.location.lng,
@@ -69,6 +125,9 @@ function getHikeData(GPSData) {
     }
     if ($('#rating').val() != null) {
         params.minStars = $('#rating').val();
+    }
+    if ($('#max-results').val() != null) {
+        params.maxResults = $('#max-results').val();
     }
 
     const querySting = formatQueryParams(params);
@@ -89,7 +148,7 @@ function getHikeData(GPSData) {
             if (!hikeData.trails.length) {
                 $('#results').html(`<p id="noHikeMatchErr" class="error-message">Could not find any hikes matching that search criteria. Please enter an alternate search and try again.`);
             }
-            else {displayResults(hikeData);}
+            else {displayResults(hikeData, formattedAddress);}
         })
         .catch(err => {
             $('#results').html(`<p id="js-error-message" class="error-message">Something went wrong: ${err.message}</p>`);
@@ -122,7 +181,8 @@ function getGPSData(searchTerm) {
             if (GPSData.status === "ZERO_RESULTS") {
                 $('#results').html(`<p id="noPlaceMatchErr" class="error-message">Could not find a place matching '${searchTerm}'. Please enter an alternate search and try again.`);
             }
-            else {getHikeData(GPSData);}
+            else {
+                getHikeData(GPSData);}
         })
         .catch(err => {
             $('#results').html(`<p id="js-error-message" class="error-message">Something went wrong: ${err.message}</p>`);
@@ -134,13 +194,13 @@ function watchForm() {
       event.preventDefault();
       const searchTerm = $('#js-search-term').val();
       getGPSData(searchTerm);
-      $('#js-search-term').val("");
     });
   };
 
 $(function() {
     console.log('App loaded! Waiting for submit!');
     watchForm();
+    handleDetailsButton();
   });
 
 
