@@ -17,84 +17,109 @@ function handleDetailsButton() {
     });
 }
 
+function renderTrailImage(image) {
+    let trailImage;
+    if(image=="") {
+        trailImage = "images/trail-image-default.jpg";
+    }
+    else {
+        trailImage = image;
+    }
+    return trailImage;
+}
+
+function renderTrailDifficulty(difficulty) {
+    let trailDifficulty;
+    if (difficulty == "green") {
+        trailDifficulty = `<i class="fas fa-circle"></i>`;
+    }
+    else if (difficulty == "greenBlue") {
+        trailDifficulty = ` <i class="fas fa-circle"></i> <i class="fas fa-square"></i>`;
+    }
+    else if (difficulty == "blue") {
+        trailDifficulty = `<i class="fas fa-square"></i>`;
+    }
+    else if (difficulty == "blueBlack") {
+        trailDifficulty = `<i class="fas fa-square"></i> <i class="fas fa-square-full"></i>`;
+    }
+    else if (difficulty == "black") {
+        trailDifficulty = `<i class="fas fa-square-full"></i>`;
+    }
+    else if (difficulty == "dblack") {
+        trailDifficulty = `<i class="fas fa-square-full"></i> <i class="fas fa-square-full"></i>`;
+    }
+    else {
+        trailDifficulty = `unknown`;
+    }
+
+    return trailDifficulty;
+}
+
+function renderTrailRating(rating) {
+    let trailRating;
+    if (rating >= 0 && rating < 1) {
+        trailRating = `<i class="fas fa-star-half"></i>`;
+    }
+    else if (rating >= 1 && rating < 1.5) {
+        trailRating = `<i class="fas fa-star"></i>`;
+    } 
+    else if (rating >= 1.5 && rating < 2) {
+        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
+    } 
+    else if (rating >= 2 && rating < 2.5) {
+        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i>`;
+    } 
+    else if (rating >= 2.5 && rating < 3) {
+        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
+    } 
+    else if (rating >= 3 && rating < 3.5) {
+        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>`;
+    } 
+    else if (rating >= 3.5 && rating < 4) {
+        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
+    } 
+    else if(rating >= 4 && rating < 4.5) {
+        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>`;
+    } 
+    else if (rating >= 4.5 && rating < 5) {
+        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
+    } 
+    else if(rating == 5) {
+        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>`;
+    } 
+    else {
+        trailRating = `Unknown`;
+    }
+    return trailRating;
+}
+
 function displayResults(responseJson, formattedAddress) {
 
     console.log(responseJson);
     $('#results').empty();
     $('#results').html(
-        `<h2>Showing results for ${formattedAddress}</h2>
-        <ul id="resultsList"></ul>`
+        `<h2>Showing ${responseJson.trails.length} results for ${formattedAddress}</h2>
+        <ul id="resultsList"></ul>
+        <div id="attribution-section">
+            <img src="images/powered_by_google.png" alt="powered by google" id="google-attribution" class="attribution">
+            <img src="images/hiking-project-attribution.png" alt="hiking project" id="hiking-project-attribution" class="attribution">
+        </div>`
     );
 
     for (let i = 0; i < responseJson.trails.length; i++){
 
-        let trailDifficulty;
-        if (responseJson.trails[i].difficulty == "green") {
-            trailDifficulty = `<i class="fas fa-circle"></i>`;
-        }
-        else if (responseJson.trails[i].difficulty == "greenBlue") {
-            trailDifficulty = ` <i class="fas fa-circle"></i> <i class="fas fa-square"></i>`;
-        }
-        else if (responseJson.trails[i].difficulty == "blue") {
-            trailDifficulty = `<i class="fas fa-square"></i>`;
-        }
-        else if (responseJson.trails[i].difficulty == "blueBlack") {
-            trailDifficulty = `<i class="fas fa-square"></i> <i class="fas fa-square-full"></i>`;
-        }
-        else if (responseJson.trails[i].difficulty == "black") {
-            trailDifficulty = `<i class="fas fa-square-full"></i>`;
-        }
-        else if (responseJson.trails[i].difficulty == "dblack") {
-            trailDifficulty = `<i class="fas fa-square-full"></i> <i class="fas fa-square-full"></i>`;
-        }
-        else {
-            trailDifficulty = `unknown`;
-        }
-
-        let trailRating;
-        if (responseJson.trails[i].stars >= 0 && responseJson.trails[i].stars < 1.5) {
-            trailRating = `<i class="fas fa-star"></i>`;
-        }
-        else if (responseJson.trails[i].stars >= 1.5 && responseJson.trails[i].stars < 2) {
-            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
-        } 
-        else if (responseJson.trails[i].stars >= 2 && responseJson.trails[i].stars < 2.5) {
-            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i>`;
-        } 
-        else if (responseJson.trails[i].stars >= 2.5 && responseJson.trails[i].stars < 3) {
-            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
-        } 
-        else if (responseJson.trails[i].stars >= 3 && responseJson.trails[i].stars < 3.5) {
-            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>`;
-        } 
-        else if (responseJson.trails[i].stars >= 3.5 && responseJson.trails[i].stars < 4) {
-            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
-        } 
-        else if(responseJson.trails[i].stars >= 4 && responseJson.trails[i].stars < 4.5) {
-            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>`;
-        } 
-        else if (responseJson.trails[i].stars >= 4.5 && responseJson.trails[i].stars < 5) {
-            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
-        } 
-        else if(responseJson.trails[i].stars == 5) {
-            trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>`;
-        } 
-        else {
-            trailRating = `unknown`;
-        }
-
-
       $('#resultsList').append(
-        `<li><h3><a href="${responseJson.trails[i].url}" target="_blank">${responseJson.trails[i].name}</a></h3>
+        `<li><h3>${i+1}. <a href="${responseJson.trails[i].url}" target="_blank">${responseJson.trails[i].name}</a></h3>
         <p>${responseJson.trails[i].summary}</p>
-        <div id="hikePic"><a href="${responseJson.trails[i].url}" target="_blank"><img src="${responseJson.trails[i].imgMedium}"></a></div>
+        <div id="hikePic"><a href="${responseJson.trails[i].url}" target="_blank"><img src="${renderTrailImage(responseJson.trails[i].imgMedium)}"></a></div>
         <p>Trail Length: ${responseJson.trails[i].length} miles</p>
-        <p>Rating: ${trailRating}</p>
-        <p class="hidden" id="details">Difficulty: <span class="star">${trailDifficulty}</p>
+        <p>Rating: ${renderTrailRating(responseJson.trails[i].stars)}</p>
+        <p class="hidden" id="details">Difficulty: <span class="star">${renderTrailDifficulty(responseJson.trails[i].difficulty)}</p>
         <p class="hidden" id="details">Ascent: <i class="fas fa-arrow-up"></i>  ${responseJson.trails[i].ascent} ft</p>
         <p class="hidden" id="details">Descent: ${responseJson.trails[i].descent} ft <i class="fas fa-arrow-down"></i></p>
         <p class="hidden" id="details">Trail Condition: ${responseJson.trails[i].conditionStatus}</p>
         <div class="buttonContainer"><button id="detailsButton">Show/Hide Details</button></div>
+        <div class="buttonContainer"><a href="https://www.google.com/maps/dir/?api=1&destination=${responseJson.trails[i].latitude},${responseJson.trails[i].longitude}" target="_blank"><button id="directionsButton">Get Directions</button></a></div>
         </li>`
       )};
   };
@@ -189,11 +214,17 @@ function getGPSData(searchTerm) {
           });
 };
 
+function resultsScroll() {
+    console.log("scrolling");
+    $('html, body').animate({scrollTop: $("#results").offset().top},900)
+}
+
 function watchForm() {
     $('form').submit(event => {
       event.preventDefault();
       const searchTerm = $('#js-search-term').val();
       getGPSData(searchTerm);
+      resultsScroll();
     });
   };
 

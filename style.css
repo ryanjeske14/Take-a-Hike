@@ -3,7 +3,7 @@
 }
 
 html {
-    padding: 60px 20px 20px 20px;
+    padding: 60px 20px 0px 20px;
 }
 
 body {
@@ -55,8 +55,9 @@ select {
 h2 {
     font-size: 20px;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
     margin-bottom: 30px;
+    padding-top: 30px;
 }
 
 #resultsList {
@@ -93,7 +94,7 @@ li {
     font-size: 15px;
 }
 
-#detailsButton {
+#detailsButton, #directionsButton {
     background-color: rgb(113, 160, 113);
     border-radius: 2px;
     border: none;
@@ -101,8 +102,39 @@ li {
     padding: 6px 15px;
     display: block;
     margin-top: 20px;
+    text-decoration: none;
+}
+
+ .buttonContainer a {
+    text-decoration: none;
 }
 
 .error-message {
     color: red;
 }
+
+#attribution-section {
+    position: relative;
+    height: 30px;
+}
+
+.attribution {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+#google-attribution {
+    position: absolute;
+    left: 0;
+    bottom: 4px;
+}
+
+#hiking-project-attribution {
+    height: 30px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
