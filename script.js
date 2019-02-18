@@ -14,6 +14,13 @@ function handleDetailsButton() {
     $('#results').on('click', '#detailsButton', function(event) {
        console.log('details button clicked');
         $(this).closest('li').children('#details').toggleClass('hidden');
+        if ($(this).html() == "Show Details") {
+            $(this).html("Hide Details")
+        }
+        else if ($(this).html() == "Hide Details") {
+            $(this).html("Show Details")
+        }
+        
     });
 }
 
@@ -101,7 +108,7 @@ function displayResults(responseJson, formattedAddress) {
         `<h2>Showing ${responseJson.trails.length} results for ${formattedAddress}</h2>
         <ul id="resultsList"></ul>
         <div id="attribution-section">
-            <div><img src="images/powered_by_google.png" alt="powered by google" id="google-attribution" class="attribution"></div>
+            <div><img src="images/powered_by_google_hd.png" alt="powered by google" id="google-attribution" class="attribution"></div>
             <div><img src="images/hiking-project-attribution.png" alt="hiking project" id="hiking-project-attribution" class="attribution"></div>
         </div>`
     );
@@ -118,8 +125,8 @@ function displayResults(responseJson, formattedAddress) {
         <p class="hidden" id="details">Ascent: <i class="fas fa-arrow-up"></i>  ${responseJson.trails[i].ascent} ft</p>
         <p class="hidden" id="details">Descent: ${responseJson.trails[i].descent} ft <i class="fas fa-arrow-down"></i></p>
         <p class="hidden" id="details">Trail Condition: ${responseJson.trails[i].conditionStatus}</p>
-        <div class="buttonContainer"><button id="detailsButton">Show/Hide Details</button></div>
-        <div class="buttonContainer"><a href="https://www.google.com/maps/dir/?api=1&destination=${responseJson.trails[i].latitude},${responseJson.trails[i].longitude}" target="_blank"><button id="directionsButton">Get Directions</button></a></div>
+        <div class="buttonContainer"><button id="detailsButton">Show Details</button></div>
+        <div class="buttonContainer"><a href="https://www.google.com/maps/dir/?api=1&destination=${responseJson.trails[i].latitude},${responseJson.trails[i].longitude}" target="_blank" id="directionsButton">Get Directions</a></div>
         </li>`
       )};
   };
