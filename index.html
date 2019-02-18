@@ -21,45 +21,53 @@
     <main id="mainContainer">
         <form id="js-form">
             <p id="tagline2">Search by location to find hikes in your area</p>
-            <input type="text" name="search-term" id="js-search-term" placeholder="Search by city, state, zip, etc." required>
-            <h4>Search Criteria (optional)</h4>
+            <input type="text" name="search-term" id="js-search-term" placeholder="Search by city, state, zip, etc." required></input>
+            <h4 id="criteriaLabel">Search Criteria (optional)</h4>
             <fieldset>
-                <label for="search-radius">Search Radius (mi)</label>
-                <select id="search-radius">
-                    <option value="null" selected disabled hidden></option>
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-                <label for="trail-length">Trail Length (mi)</label>
-                <select id="trail-length">
-                    <option value="null" selected disabled hidden></option>
-                    <option value="1">> 1</option>
-                    <option value="5">> 5</option>
-                    <option value="10">> 10</option>
-                    <option value="20">> 20</option>
-                </select>
-                <label for="rating">Minimum Rating</label>
-                <select id="rating">
-                    <option value="null" selected disabled hidden></option>
-                    <option value="1">★</option>
-                    <option value="2">★★</option>
-                    <option value="3">★★★</option>
-                    <option value="4">★★★★</option>
-                </select>
-                <label for="max-results">Maximum Number of Results</label>
-                <select id="max-results">
-                    <option value="null" selected disabled hidden></option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
+                <div class="selection">
+                    <label for="search-radius">Search Radius (mi)</label>
+                    <select id="search-radius">
+                        <option value="null" selected disabled hidden></option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div class="selection">
+                    <label for="trail-length">Trail Length (mi)</label>
+                    <select id="trail-length">
+                        <option value="null" selected disabled hidden></option>
+                        <option value="1">> 1</option>
+                        <option value="5">> 5</option>
+                        <option value="10">> 10</option>
+                        <option value="20">> 20</option>
+                    </select>
+                </div>
+                <div class="selection">
+                    <label for="rating">Minimum Rating</label>
+                    <select id="rating">
+                        <option value="null" selected disabled hidden></option>
+                        <option value="1">★</option>
+                        <option value="2">★★</option>
+                        <option value="3">★★★</option>
+                        <option value="4">★★★★</option>
+                    </select>
+                </div>
+                <div class="selection">
+                    <label for="max-results">Maximum Number of Results</label>
+                    <select id="max-results">
+                        <option value="null" selected disabled hidden></option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
             </fieldset>
             
-            <input type="submit" value="Take a Hike!" id="search-button">
+            <input type="submit" value="Find Hikes!" id="search-button">
         </form>
 
 

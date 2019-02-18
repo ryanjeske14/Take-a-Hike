@@ -101,15 +101,15 @@ function displayResults(responseJson, formattedAddress) {
         `<h2>Showing ${responseJson.trails.length} results for ${formattedAddress}</h2>
         <ul id="resultsList"></ul>
         <div id="attribution-section">
-            <img src="images/powered_by_google.png" alt="powered by google" id="google-attribution" class="attribution">
-            <img src="images/hiking-project-attribution.png" alt="hiking project" id="hiking-project-attribution" class="attribution">
+            <div><img src="images/powered_by_google.png" alt="powered by google" id="google-attribution" class="attribution"></div>
+            <div><img src="images/hiking-project-attribution.png" alt="hiking project" id="hiking-project-attribution" class="attribution"></div>
         </div>`
     );
 
     for (let i = 0; i < responseJson.trails.length; i++){
 
       $('#resultsList').append(
-        `<li><h3>${i+1}. <a href="${responseJson.trails[i].url}" target="_blank">${responseJson.trails[i].name}</a></h3>
+        `<li><h3>${i+1}. <a href="${responseJson.trails[i].url}" target="_blank" id="trailLink">${responseJson.trails[i].name}</a></h3>
         <p>${responseJson.trails[i].summary}</p>
         <div id="hikePic"><a href="${responseJson.trails[i].url}" target="_blank"><img src="${renderTrailImage(responseJson.trails[i].imgMedium)}"></a></div>
         <p>Trail Length: ${responseJson.trails[i].length} miles</p>
