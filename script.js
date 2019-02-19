@@ -10,9 +10,9 @@ const endPoints = {
     getTrailsEndPoint: "https://www.hikingproject.com/data/get-trails"
 };
 
+// functionality for show / hide details button 
 function handleDetailsButton() {
     $('#results').on('click', '#detailsButton', function(event) {
-       console.log('details button clicked');
         $(this).closest('li').children('#details').toggleClass('hidden');
         if ($(this).html() == "Show Details") {
             $(this).html("Hide Details")
@@ -24,6 +24,7 @@ function handleDetailsButton() {
     });
 }
 
+// if no image url is returned from Hiking Project API data, display default image  
 function renderTrailImage(image) {
     let trailImage;
     if(image=="") {
@@ -35,6 +36,7 @@ function renderTrailImage(image) {
     return trailImage;
 }
 
+// convert trail difficulty string to visual symbols 
 function renderTrailDifficulty(difficulty) {
     let trailDifficulty;
     if (difficulty == "green") {
@@ -62,6 +64,7 @@ function renderTrailDifficulty(difficulty) {
     return trailDifficulty;
 }
 
+// convert numeric star rating to visual stars
 function renderTrailRating(rating) {
     let trailRating;
     if (rating >= 0 && rating < 1) {
@@ -97,6 +100,7 @@ function renderTrailRating(rating) {
     else {
         trailRating = `Unknown`;
     }
+    
     return trailRating;
 }
 
@@ -113,8 +117,8 @@ function displayResults(responseJson, formattedAddress) {
         </div>`
     );
 
+    // loop through each object in the responseJson.trails array and append HTML using response data 
     for (let i = 0; i < responseJson.trails.length; i++){
-
       $('#resultsList').append(
         `<li><h3>${i+1}. <a href="${responseJson.trails[i].url}" target="_blank" id="trailLink">${responseJson.trails[i].name}</a></h3>
         <p>${responseJson.trails[i].summary}</p>
@@ -131,27 +135,29 @@ function displayResults(responseJson, formattedAddress) {
       )};
   };
 
+ // pass in params object to be formatted into query parameters that will be appended to API endpoint urls 
 function formatQueryParams(params) {
     const queryItems = Object.keys(params)
       .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
     return queryItems.join('&');
 };
 
+// get data from Hiking Project API using longitude and latitude coordinates
 function getHikeData(GPSData) {
     console.log(`Finding Hikes`);
-    console.log($('#search-radius').val());
     const formattedAddress = GPSData.results[0].formatted_address;
+    
+    // create object to store parameters to be passed into formatQueryParams() function 
     const params = {
         lat: GPSData.results[0].geometry.location.lat,
         lon: GPSData.results[0].geometry.location.lng,
         sort: "distance",
         key: APIKeys.hikingProjectAPIKey
     }
-
+    // add optional parameters to params object based on user search criteria inputs 
     if ($('#search-radius').val() != null) {
         params.maxDistance = $('#search-radius').val();
     }
-
     if ($('#trail-length').val() != null) {
         params.minLength = $('#trail-length').val();
     }
@@ -188,8 +194,10 @@ function getHikeData(GPSData) {
 
 };
 
+// use Google Geocode API to get longitude and latitude of search term
 function getGPSData(searchTerm) {
     console.log(`Getting GPS Coordinates`);
+     // create object to store parameters to be passed into formatQueryParams() function 
     const params = {
         address: searchTerm,
         key: APIKeys.googleAPIKey,
@@ -221,11 +229,12 @@ function getGPSData(searchTerm) {
           });
 };
 
+// scroll to search results section when form is submitted
 function resultsScroll() {
-    console.log("scrolling");
     $('html, body').animate({scrollTop: $("#results").offset().top},900)
 }
 
+// handle form submission, store search value, and pass search value to getGPSData() function
 function watchForm() {
     $('form').submit(event => {
       event.preventDefault();
@@ -235,6 +244,7 @@ function watchForm() {
     });
   };
 
+// initialize app   
 $(function() {
     console.log('App loaded! Waiting for submit!');
     watchForm();
