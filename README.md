@@ -7,10 +7,13 @@ An API-driven search tool that enables users to find local hikes by location, se
 - [Live Demo](https://ryanjeske14.github.io/take-a-hike/)
 
 ## Screenshots
-Search Screen:
+
+### Search Screen:
+
 ![search screen](screenshots/search_screen.PNG)
 
-Results Screen:
+### Results Screen:
+
 ![results screen](screenshots/results_screen.PNG)
 
 ## Built With
