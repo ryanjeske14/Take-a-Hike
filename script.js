@@ -122,7 +122,7 @@ function displayResults(responseJson, formattedAddress) {
       $('#resultsList').append(
         `<li><h3>${i+1}. <a href="${responseJson.trails[i].url}" target="_blank" id="trailLink">${responseJson.trails[i].name}</a></h3>
         <p>${responseJson.trails[i].summary}</p>
-        <div id="hikePic"><a href="${responseJson.trails[i].url}" target="_blank"><img src="${renderTrailImage(responseJson.trails[i].imgMedium)}"></a></div>
+        <div id="hikePic"><a href="${responseJson.trails[i].url}" target="_blank"><img src="${renderTrailImage(responseJson.trails[i].imgMedium)}" alt="hike picture"></a></div>
         <p>Trail Length: ${responseJson.trails[i].length} miles</p>
         <p>Rating: ${renderTrailRating(responseJson.trails[i].stars)}</p>
         <p class="hidden" id="details">Difficulty: <span class="star">${renderTrailDifficulty(responseJson.trails[i].difficulty)}</p>

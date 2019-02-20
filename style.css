@@ -124,6 +124,30 @@ select {
     font-size: 14px;
     cursor: pointer;
     padding: 2px 0 3px 5px;
+    -webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	 -o-appearance: none;
+		appearance: none;
+}
+
+.selection {
+    position: relative;
+}
+
+.selection:after {
+    font-family: FontAwesome;
+    content: '\f107';
+    font-size: 26px;
+    position: absolute;
+    top: 22px;
+    right: 9px;
+    color: rgb(128, 128, 128);
+    pointer-events: none;
+}
+
+select::-ms-expand {
+    display: none;
 }
 
 select:focus {
@@ -299,7 +323,6 @@ li {
         padding-right: 50px;
         padding-bottom: 40px;
     }
-
 }
 
 @media screen and (min-width: 1275px) {
@@ -329,4 +352,3 @@ li {
         max-height: 200px;
     }
 }
-
