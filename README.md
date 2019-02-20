@@ -8,10 +8,10 @@ An API-driven search tool that enables users to find local hikes by location, se
 
 ## Screenshots
 Search Screen:
-![search screen](screenshots/search_screen.png)
+![search screen](screenshots/search_screen.PNG)
 
 Results Screen:
-![results screen](screenshots/results_screen.png)
+![results screen](screenshots/results_screen.PNG)
 
 ## Built With
 
