@@ -106,7 +106,6 @@ function renderTrailRating(rating) {
 
 function displayResults(responseJson, formattedAddress) {
 
-    console.log(responseJson);
     $('#results').empty();
     $('#results').html(
         `<h2>Showing ${responseJson.trails.length} results for ${formattedAddress}</h2>
@@ -144,7 +143,7 @@ function formatQueryParams(params) {
 
 // get data from Hiking Project API using longitude and latitude coordinates
 function getHikeData(GPSData) {
-    console.log(`Finding Hikes`);
+
     const formattedAddress = GPSData.results[0].formatted_address;
     
     // create object to store parameters to be passed into formatQueryParams() function 
@@ -196,7 +195,7 @@ function getHikeData(GPSData) {
 
 // use Google Geocode API to get longitude and latitude of search term
 function getGPSData(searchTerm) {
-    console.log(`Getting GPS Coordinates`);
+
      // create object to store parameters to be passed into formatQueryParams() function 
     const params = {
         address: searchTerm,
@@ -246,7 +245,6 @@ function watchForm() {
 
 // initialize app   
 $(function() {
-    console.log('App loaded! Waiting for submit!');
     watchForm();
     handleDetailsButton();
   });
