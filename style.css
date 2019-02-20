@@ -136,14 +136,17 @@ select {
 }
 
 .selection:after {
-    font-family: FontAwesome;
-    content: '\f107';
-    font-size: 26px;
+
+    content: '>';
+    font-size: 20px;
     position: absolute;
-    top: 22px;
+    top: 24px;
     right: 9px;
     color: rgb(128, 128, 128);
     pointer-events: none;
+    transform: rotate(90deg);
+    font-weight: 800;
+    
 }
 
 select::-ms-expand {
