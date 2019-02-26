@@ -67,45 +67,23 @@ function renderTrailDifficulty(difficulty) {
 // convert numeric star rating to visual stars
 function renderTrailRating(rating) {
     let trailRating;
-    if (rating >= 0 && rating < 1) {
-        trailRating = `<i class="fas fa-star-half"></i>`;
+    const star = '<i class="fas fa-star"></i>';
+    const halfStar = '<i class="fas fa-star-half"></i>';
+    let wholeTrailRating = rating - (rating % 1);
+    let decimalTrailRating = rating % 1;
+
+    if (decimalTrailRating >= 0.5) {
+        trailRating = star.repeat(wholeTrailRating) + halfStar;
     }
-    else if (rating >= 1 && rating < 1.5) {
-        trailRating = `<i class="fas fa-star"></i>`;
-    } 
-    else if (rating >= 1.5 && rating < 2) {
-        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
-    } 
-    else if (rating >= 2 && rating < 2.5) {
-        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i>`;
-    } 
-    else if (rating >= 2.5 && rating < 3) {
-        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
-    } 
-    else if (rating >= 3 && rating < 3.5) {
-        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>`;
-    } 
-    else if (rating >= 3.5 && rating < 4) {
-        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
-    } 
-    else if(rating >= 4 && rating < 4.5) {
-        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>`;
-    } 
-    else if (rating >= 4.5 && rating < 5) {
-        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i>`;
-    } 
-    else if(rating == 5) {
-        trailRating = `<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>`;
-    } 
+
     else {
-        trailRating = `Unknown`;
+        trailRating = star.repeat(wholeTrailRating);
     }
-    
+ 
     return trailRating;
 }
 
 function displayResults(responseJson, formattedAddress) {
-
     $('#results').empty();
     $('#results').html(
         `<h2>Showing ${responseJson.trails.length} results for ${formattedAddress}</h2>
@@ -143,7 +121,6 @@ function formatQueryParams(params) {
 
 // get data from Hiking Project API using longitude and latitude coordinates
 function getHikeData(GPSData) {
-
     const formattedAddress = GPSData.results[0].formatted_address;
     
     // create object to store parameters to be passed into formatQueryParams() function 
@@ -195,7 +172,6 @@ function getHikeData(GPSData) {
 
 // use Google Geocode API to get longitude and latitude of search term
 function getGPSData(searchTerm) {
-
      // create object to store parameters to be passed into formatQueryParams() function 
     const params = {
         address: searchTerm,
