@@ -165,7 +165,7 @@ function getHikeData(GPSData) {
             else {displayResults(hikeData, formattedAddress);}
         })
         .catch(err => {
-            $('#results').html(`<p id="js-error-message" class="error-message">Something went wrong: ${err.message}</p>`);
+            $('#results').html(`<p id="js-error-message" class="error-message">Something went wrong. Please try again later.</p>`);
           });
 
 };
@@ -200,7 +200,7 @@ function getGPSData(searchTerm) {
                 getHikeData(GPSData);}
         })
         .catch(err => {
-            $('#results').html(`<p id="js-error-message" class="error-message">Something went wrong: ${err.message}</p>`);
+            $('#results').html(`<p id="js-error-message" class="error-message">Something went wrong. Please try again later.</p>`);
           });
 };
 
